@@ -189,13 +189,13 @@ namespace chisel_ros
         chiselMap.reset(new chisel::Chisel(Eigen::Vector3i(chunkSizeX, chunkSizeY, chunkSizeZ), resolution, color));
     }
 
-    bool ChiselServer::TogglePaused(chisel_msgs::PauseService::Request& request, chisel_msgs::PauseService::Response& response)
+    bool ChiselServer::TogglePaused(chisel_ros::PauseService::Request& request, chisel_ros::PauseService::Response& response)
     {
         SetPaused(!IsPaused());
         return true;
     }
 
-    bool ChiselServer::Reset(chisel_msgs::ResetService::Request& request, chisel_msgs::ResetService::Response& response)
+    bool ChiselServer::Reset(chisel_ros::ResetService::Request& request, chisel_ros::ResetService::Response& response)
     {
         chiselMap->Reset();
         return true;
@@ -611,13 +611,13 @@ namespace chisel_ros
         }
     }
 
-    bool ChiselServer::SaveMesh(chisel_msgs::SaveMeshService::Request& request, chisel_msgs::SaveMeshService::Response& response)
+    bool ChiselServer::SaveMesh(chisel_ros::SaveMeshService::Request& request, chisel_ros::SaveMeshService::Response& response)
     {
         bool saveSuccess = chiselMap->SaveAllMeshesToPLY(request.file_name);
         return saveSuccess;
     }
 
-    bool ChiselServer::GetAllChunks(chisel_msgs::GetAllChunksService::Request& request, chisel_msgs::GetAllChunksService::Response& response)
+    bool ChiselServer::GetAllChunks(chisel_ros::GetAllChunksService::Request& request, chisel_ros::GetAllChunksService::Response& response)
     {
         const chisel::ChunkMap& chunkmap = chiselMap->GetChunkManager().GetChunks();
         response.chunks.chunks.resize(chunkmap.size());
@@ -625,7 +625,7 @@ namespace chisel_ros
         size_t i = 0;
         for (const std::pair<chisel::ChunkID, chisel::ChunkPtr>& chunkPair : chiselMap->GetChunkManager().GetChunks())
         {
-            chisel_msgs::ChunkMessage& msg = response.chunks.chunks.at(i);
+            chisel_ros::ChunkMessage& msg = response.chunks.chunks.at(i);
             FillChunkMessage(chunkPair.second, &msg);
             i++;
         }

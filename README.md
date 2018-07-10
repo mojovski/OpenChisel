@@ -1,6 +1,33 @@
 OpenChisel
 ==========
 
+## Build
+
+Install 
+```
+apt-get install ros-kinetic-pcl* eigen3-dev
+```
+
+### Open Chisel Standalone
+
+```
+cd open_chisel
+mkdir _build
+cmake ..
+```
+
+### Open Chisel Ros
+
+```
+cd chisel_ros
+export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:`pwd`
+mkdir _build
+cd _build
+cmake ..
+make
+```
+
+
 An open-source version of the Chisel chunked TSDF library. It contains two packages:
 
 ## open_chisel
